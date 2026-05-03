@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Login</title>
+    <link rel="stylesheet" href="../main.css">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        overflow: auto;
+        overscroll-behavior: auto;
+      }
+      body {
+        font-family: system-ui, "Segoe UI", Roboto, Arial;
+        background-image: radial-gradient(circle farthest-corner at center, #32CBAA 0%, #009F7D 100%);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        min-height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+      }
+      .container {
+        background: #FFF1D4;
+        padding: clamp(48px, 8vh, 96px) 32px;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 420px;
+        box-sizing: border-box;
+        text-align: center;
+      }
+      .logo {
+        width: min(100%, 380px);
+        margin: 0 auto 20px;
+        display: grid;
+        place-items: center;
+      }
+      .logo img {
+        display: block;
+        width: 100%;
+        max-width: 580px;
+        height: auto;
+      }
+      .profile-icon {
+        width: 127px;
+        height: 96px;
+        border-radius: 8px;
+        margin: 11px auto 19px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        color: #999;
+      }
+
+      .profile-icon img {
+        width: 200px;
+        height: auto;
+      }
+      label {
+        display: block;
+        margin: 0 0 8px;
+        text-align: left;
+      }
+      input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        box-sizing: border-box;
+        margin-bottom: 16px;
+      }
+      input:focus {
+        outline: none;
+        border-color: #1dc48f;
+        box-shadow: 0 0 0 2px rgba(29, 196, 143, 0.1);
+      }
+      button {
+        width: 100%;
+        padding: 12px;
+        background: #1dc48f;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #16a870;
+      }
+      input.error {
+        border-color: #e74c3c !important;
+        animation: shake 0.3s ease-in-out;
+      }
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-4px); }
+        75% { transform: translateX(4px); }
+      }
+
+      #submit-btn {
+        background: #278F65;
+        background: linear-gradient(180deg,rgba(39, 143, 101, 1) 0%, rgba(34, 193, 195, 1) 50%, rgba(39, 143, 101, 1) 100%);      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">
+        <img src="/assets/homebase archive logo.svg">
+      </div>
+      <div class="profile-icon">
+        <img src="/assets/profile icon.svg">
+      </div>
+      <h3>Welcome back, user-050826x!</h3>
+      <p>Please enter your password.</p>
+      <label for="password-input">Password</label>
+      <input type="password" placeholder="" id="password-input" aria-label="Password">
+      <button id="submit-btn">Sign In</button>
+    </div>
+    <script>
+      const submit = document.getElementById('submit-btn');
+      const input = document.getElementById('password-input');
+      const correctPassword = 'rosetints2008';
+
+      submit.addEventListener('click', () => {
+        if (input.value === correctPassword) {
+          // Correct password - send message to parent to open success page with auth marker
+          parent.postMessage('open-iframe:htmls/login-success.html?auth=1', '*');
+        } else {
+          // Incorrect password - show error state
+          input.classList.add('error');
+          setTimeout(() => {
+            input.classList.remove('error');
+          }, 300);
+        }
+      });
+
+      // Allow Enter key to submit
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') submit.click();
+      });
+    </script>
+  </body>
+</html>

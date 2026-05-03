@@ -1,0 +1,560 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Homebase Archive</title>
+    <link rel="stylesheet" href="../main.css">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        /* background-image: radial-gradient(circle farthest-corner at center, #32CBAA 0%, #009F7D 100%); */
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        min-height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: system-ui, "Segoe UI", Roboto, Arial;
+      }
+      .welcome {
+        outline: 1px solid black;
+        background: #FFF1D4;
+        padding: 30px 30px;
+        text-align: center;
+        max-width: 500px;
+        z-index: 1;
+      }
+      #background{
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+      }
+      #background img {
+        width: 100%;
+        height: 100%;
+        /* object-fit: cover; */
+        display: block;
+      }
+      button.popup-enter-btn {
+        background: #FFF1D4;
+        color: black;
+        border: 1px solid #eadaba;
+        outline: 1px solid black;
+        padding: 8px 12px;
+        margin-top: 16px;
+        cursor: pointer;
+      }
+      button.popup-enter-btn:hover {
+        background: #f0e4d1;
+      }
+
+      .dialog-overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.35);
+        z-index: 10;
+      }
+
+      .dialog-overlay[hidden] {
+        display: none;
+      }
+
+      .dialog-actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .dialog-actions .popup-enter-btn {
+        margin-top: 0;
+        min-width: 88px;
+      }
+
+        #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #ecc630a1;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+      }
+
+      #overlay.active {
+        display: flex;
+      }
+
+      .early-porch {
+        position: absolute;
+        left: 52vw;
+        top: 74vh;
+        transform: translate(-50%, -50%);
+        width: 170px;
+        height: auto;
+      }
+
+      .profile {
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        top: 10px;
+        right:0;
+        overflow: hidden;
+        z-index: 4;
+        /* background: blue; */
+      }
+
+      .profile-icon {
+        position: absolute;
+        width: 200px;
+        top: 14px;
+        height: 200px;
+        left: 10px;
+        overflow: hidden;
+      }
+
+      .map{
+      position: absolute;
+        width: 200px;
+        top: 35px;
+        height: 150px;
+        overflow: hidden;
+      /* background: url('/assets/map.svg') no-repeat center center; */
+      background-size: contain;
+      z-index: 5;
+      padding: 12px 0 12px 12px;
+      margin: -12px 0 -12px -12px;
+      box-sizing: content-box;
+      }
+
+      .map img {
+        cursor: pointer;
+      }
+
+      .exit{
+        position: absolute;
+        width: 200px;
+        left:20%;
+        top: 35px;
+        height: 150px;
+        overflow: hidden;
+        z-index: 6;
+        padding: 12px 12px 12px 0;
+        margin: -12px -12px -12px 0;
+        box-sizing: content-box;
+        /* background: red; */
+      }
+
+      .exit img {
+        cursor: pointer;
+      }
+
+      .menu {
+        position: absolute;
+        right: 10px;
+        margin:0;
+        top: 0;
+        /* background: red; */
+        width: 500px;
+        height:200px;
+
+      }
+
+      .menu-bottom {
+        position: relative;
+        bottom: 180px;
+        left: 0.9vw;
+        width: 94.5%;
+        height: 15px;
+        background: #005751;
+        z-index: 5;
+        border-radius: 3px;
+        pointer-events: none;
+      }
+
+      .map-window {
+        z-index: 4;
+      }
+
+      .map-window .title-bar {
+        background-image: linear-gradient(to bottom, #ffd6dc, #ef9ca2, #d86d92);
+      }
+
+      .map-window .title-bar button:hover {
+        background: rgba(116, 32, 63, 0.18);
+      }
+
+      .map-window .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        /* gap: 14px; */
+        padding-bottom: 20px;
+        border: #ef9ca2 solid 4px;
+        border-top: none;
+        background-color: #226eab;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0));
+        background-size: 24px 24px, 24px 24px, 100% 100%;
+        color: #f8fcff;
+        text-align: center;
+      }
+
+      .map-window .content img {
+        width: 300px;
+        height: auto;
+      }
+
+      .map-window .content p {
+        margin: 0;
+      }
+
+      .map-window-note {
+        max-width: 240px;
+        color: rgba(248, 252, 255, 0.9);
+        line-height: 1.35;
+      }
+
+  
+    </style>
+  </head>
+  
+  <body>
+    <div id="background">
+      <img src="/assets/location/front yard.png" alt="Background" usemap="#image-map">
+
+
+    </div>
+
+    <div id="overlay"></div>
+
+    <div class="menu">
+      <img src="/assets/ui square 2.svg" style ="width:100%; height:100%; display:block; margin:0; rotate:calc(180deg)" alt="Menu Background">
+
+      <div class="menu-bottom"></div>
+      <div class="profile">
+      <img src="/assets/ui square.svg" style="width:100%; height:100%; display:block;" alt="Profile Background">
+
+        <div class="profile-icon">
+        <img src="/assets/profile icon.svg">
+
+        </div>
+        </div>
+      <div class="map">
+        <img id="map-trigger" src="/assets/map.svg" style="width:100%; height:100%; display:block;" alt="Map" role="button" tabindex="0" aria-controls="map-window" aria-expanded="false">
+      </div>
+
+      <div class="exit">
+        <img id="exit-trigger" src="/assets/exit.svg" style="width:100%; height:100%; display:block;" alt="Exit archive" role="button" tabindex="0" onmouseover="this.src='/assets/exit hover.svg'" onmouseout="this.src='/assets/exit.svg'">
+      </div>
+
+      </div>
+
+    </div>
+    
+    <img src="/assets/items/early-porch.png" class="early-porch" onclick="openWindow('early-porch')" onmouseover="this.src='/assets/items/early-porch hover.png'" onmouseout="this.src='/assets/items/early-porch.png'">
+
+
+    <a href="sideyard.html" class="arrow-link" style="position:absolute; right:520px; bottom:60px; display:inline-block; width:50px; height:60px;">
+      <img src="/assets/arrows/up right arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Sideyard">
+    </a>
+
+    <a href="entrance.html" class="arrow-link" style="position:absolute; right:725px; bottom:70px; display:inline-block; width:50px; height:50px;">
+      <img src="/assets/arrows/up arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Entrance">
+    </a>    
+
+  
+
+
+    <div class="welcome" hidden>
+      <h1>Welcome back to your archive!</h1>
+      <p>Authentication successful. You now have access to the archive.</p>
+      <button id="popup-dismiss-btn" class="popup-enter-btn">Dismiss</button>
+      <div class="unclickable-background" style="position:absolute; inset:0; z-index:-1;"></div>
+    </div>
+
+    <div id="exit-confirm-overlay" class="dialog-overlay" hidden>
+      <div class="welcome" role="dialog" aria-modal="true" aria-labelledby="exit-confirm-title">
+        <h1 id="exit-confirm-title">Are you sure you want to exit?</h1>
+        <p>This will exit the application.</p>
+        <div class="dialog-actions">
+          <button id="exit-confirm-yes" class="popup-enter-btn">Yes</button>
+          <button id="exit-confirm-no" class="popup-enter-btn">No</button>
+        </div>
+      </div>
+    </div>
+
+        <div class="window hidden" id="entries-window" style="width:400px; height:100px; top:90px; left:280px;">
+        <div class="title-bar">
+            <div class="title">entry xx</div>
+            <button class="close">
+                <img src="../assets/x button.svg" alt="exit-button">
+            </button>
+        </div>
+        <iframe src="textentries.html"></iframe>
+    </div>
+
+    <div class="window hidden" id="image-entries-window" style="width:400px; height:300px; top:220px; left:80px;">
+        <div class="title-bar">
+            <div class="title">entry xx</div>
+        </div>
+        <iframe src="imageentries.html"></iframe>
+    </div>
+
+    <div class="window hidden map-window" id="map-window" style="width:360px; height:280px; top:60px; left:60px;" aria-hidden="true">
+        <div class="title-bar">
+            <div class="title">Site Map</div>
+            <button class="close" type="button" aria-label="Close map window">
+                <img src="../assets/x button.svg" alt="Close map window">
+            </button>
+        </div>
+        <div class="content">
+            <img src="/assets/map/frontyard-map.svg" alt="" aria-hidden="true">
+            <p>Front Yard</p>
+            <!-- <p class="map-window-note">Toggle this pink window from the map button in the top bar.</p> -->
+        </div>
+    </div>
+    <script>
+      const dismissButton = document.getElementById('popup-dismiss-btn');
+      const welcome = document.querySelector('.welcome');
+      const mapTrigger = document.getElementById('map-trigger');
+      const mapWindow = document.getElementById('map-window');
+      const mapWindowClose = mapWindow ? mapWindow.querySelector('.close') : null;
+      const exitTrigger = document.getElementById('exit-trigger');
+      const exitConfirmOverlay = document.getElementById('exit-confirm-overlay');
+      const exitConfirmYes = document.getElementById('exit-confirm-yes');
+      const exitConfirmNo = document.getElementById('exit-confirm-no');
+      const params = new URLSearchParams(window.location.search);
+      const authorized = params.get('auth') === '1';
+      const indexUrl = new URL('../index.html', window.location.href).href;
+      let mapWindowOpen = sessionStorage.getItem('mapWindowOpen') === 'true';
+      let mapTriggerHovered = false;
+
+      const updateMapTriggerIcon = () => {
+        if (!mapTrigger) return;
+
+        if (mapWindowOpen) {
+          mapTrigger.src = mapTriggerHovered ? '/assets/map active hover.svg' : '/assets/map active.svg';
+        } else {
+          mapTrigger.src = mapTriggerHovered ? '/assets/map hover.svg' : '/assets/map.svg';
+        }
+
+        mapTrigger.setAttribute('aria-expanded', String(mapWindowOpen));
+      };
+
+      const setMapWindowOpen = (isOpen) => {
+        mapWindowOpen = isOpen;
+        sessionStorage.setItem('mapWindowOpen', String(isOpen));
+
+        if (mapWindow) {
+          mapWindow.classList.toggle('hidden', !isOpen);
+          mapWindow.setAttribute('aria-hidden', String(!isOpen));
+        }
+
+        updateMapTriggerIcon();
+      };
+
+      const toggleMapWindow = () => {
+        setMapWindowOpen(!mapWindowOpen);
+      };
+
+      const openExitConfirm = () => {
+        if (!exitConfirmOverlay) return;
+        exitConfirmOverlay.hidden = false;
+      };
+
+      const closeExitConfirm = () => {
+        if (!exitConfirmOverlay) return;
+        exitConfirmOverlay.hidden = true;
+      };
+
+      const goToHome = () => {
+        const targetWindow = window.top && window.top !== window ? window.top : window;
+        targetWindow.location.href = indexUrl;
+      };
+
+      if (welcome) {
+        welcome.hidden = !authorized;
+      }
+
+      if (dismissButton && welcome) {
+        dismissButton.addEventListener('click', () => {
+          welcome.hidden = true;
+        });
+      }
+
+      if (mapTrigger) {
+        updateMapTriggerIcon();
+
+        // Apply stored map state on page load
+        if (mapWindow) {
+          mapWindow.classList.toggle('hidden', !mapWindowOpen);
+          mapWindow.setAttribute('aria-hidden', String(!mapWindowOpen));
+        }
+
+        mapTrigger.addEventListener('mouseenter', () => {
+          mapTriggerHovered = true;
+          updateMapTriggerIcon();
+        });
+
+        mapTrigger.addEventListener('mouseleave', () => {
+          mapTriggerHovered = false;
+          updateMapTriggerIcon();
+        });
+
+        mapTrigger.addEventListener('click', toggleMapWindow);
+        mapTrigger.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggleMapWindow();
+          }
+        });
+      }
+
+      if (mapWindowClose) {
+        mapWindowClose.addEventListener('click', () => {
+          setMapWindowOpen(false);
+        });
+      }
+
+      if (exitTrigger) {
+        exitTrigger.addEventListener('click', openExitConfirm);
+        exitTrigger.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openExitConfirm();
+          }
+        });
+      }
+
+      if (exitConfirmNo) {
+        exitConfirmNo.addEventListener('click', closeExitConfirm);
+      }
+
+      if (exitConfirmYes) {
+        exitConfirmYes.addEventListener('click', goToHome);
+      }
+
+      if (exitConfirmOverlay) {
+        exitConfirmOverlay.addEventListener('click', (event) => {
+          if (event.target === exitConfirmOverlay) {
+            closeExitConfirm();
+          }
+        });
+      }
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+
+        if (exitConfirmOverlay && !exitConfirmOverlay.hidden) {
+          closeExitConfirm();
+          return;
+        }
+
+        if (mapWindowOpen) {
+          setMapWindowOpen(false);
+        }
+      });
+
+       function openWindow(item) {
+        const entriesWin = document.getElementById('entries-window');
+        const imageEntriesWin = document.getElementById('image-entries-window');
+        const overlay = document.getElementById("overlay");
+        overlay.classList.add('active');
+        entriesWin.classList.remove('hidden');
+        imageEntriesWin.classList.remove('hidden');
+        entriesWin.querySelector('.title').textContent = item;
+        imageEntriesWin.querySelector('.title').textContent = item + ' image';
+        entriesWin.querySelector('iframe').src = 'textentries.html?item=' + item;
+        imageEntriesWin.querySelector('iframe').src = 'imageentries.html?item=' + item;
+      }
+
+      // Set up close button behavior on page load
+      window.addEventListener('load', () => {
+        const entriesWin = document.getElementById('entries-window');
+        const imageEntriesWin = document.getElementById('image-entries-window');
+        const overlay = document.getElementById('overlay');
+        const closeBtn = entriesWin.querySelector('.close');
+
+        const closeWindows = () => {
+          entriesWin.classList.add('hidden');
+          imageEntriesWin.classList.add('hidden');
+          if (overlay) overlay.classList.remove('active');
+        };
+
+        if (closeBtn) {
+          closeBtn.addEventListener('click', closeWindows);
+        }
+
+        if (overlay) {
+          overlay.addEventListener('click', closeWindows);
+        }
+      });
+
+
+      window.addEventListener('load', () => {
+  const windows = Array.from(document.querySelectorAll('.window'));
+
+  windows.forEach((win) => {
+    const title = win.querySelector('.title-bar');
+    if (!title) return;
+
+    let dragging = false;
+    let startX = 0, startY = 0, startLeft = 0, startTop = 0;
+
+    const onDown = (e) => {
+      if (e.button !== 0) return;
+
+      const rect = win.getBoundingClientRect();
+      startX = e.clientX;
+      startY = e.clientY;
+      startLeft = rect.left;
+      startTop = rect.top;
+
+      dragging = true;
+
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+
+      win.style.left = startLeft + 'px';
+      win.style.top = startTop + 'px';
+    };
+
+    const onMove = (e) => {
+      if (!dragging) return;
+
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      win.style.left = startLeft + dx + 'px';
+      win.style.top = startTop + dy + 'px';
+    };
+
+    const onUp = () => {
+      dragging = false;
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    };
+
+    title.addEventListener('mousedown', onDown);
+  });
+});
+    </script>
+  </body>
+</html>
