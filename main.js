@@ -1,14 +1,61 @@
-function isFullscreen() {
+function getFullscreenDocument() {
+  try {
+    if (window.top && window.top.document) {
+      return window.top.document;
+    }
+  } catch (error) {
+    // Cross-origin iframe fallback: use the current document.
+  }
+
+  return document;
+}
+
+function documentIsFullscreen(fullscreenDocument) {
   return !!(
-    document.fullscreenElement ||
-    document.webkitFullscreenElement ||
-    document.mozFullScreenElement ||
-    document.msFullscreenElement
+    fullscreenDocument.fullscreenElement ||
+    fullscreenDocument.webkitFullscreenElement ||
+    fullscreenDocument.mozFullScreenElement ||
+    fullscreenDocument.msFullscreenElement
   );
 }
 
+function isFullscreen() {
+  return documentIsFullscreen(getFullscreenDocument());
+}
+
+function shouldManageFullscreenPopup() {
+  try {
+    return !window.top || window.top === window;
+  } catch (error) {
+    return true;
+  }
+}
+
+function ensureFullscreenPopup() {
+  let popup = document.getElementById('fullscreen-popup');
+  if (popup || !document.body || !shouldManageFullscreenPopup()) {
+    return popup;
+  }
+
+  popup = document.createElement('div');
+  popup.id = 'fullscreen-popup';
+  popup.setAttribute('role', 'dialog');
+  popup.setAttribute('aria-live', 'polite');
+  popup.hidden = true;
+  popup.innerHTML = `
+    <div class="popup-inner">
+      <p>Please enter fullscreen for intended experience.</p>
+      <div class="popup-actions">
+        <button id="popup-enter-btn" type="button">Go Fullscreen</button>
+      </div>
+    </div>
+  `;
+  document.body.prepend(popup);
+  return popup;
+}
+
 function setPopup(visible) {
-  const popup = document.getElementById('fullscreen-popup');
+  const popup = ensureFullscreenPopup();
   if (!popup) return;
   if (visible) {
     popup.hidden = false;
@@ -20,7 +67,8 @@ function setPopup(visible) {
 }
 
 function requestFullscreen() {
-  const el = document.documentElement;
+  const fullscreenDocument = getFullscreenDocument();
+  const el = fullscreenDocument.documentElement;
   if (el.requestFullscreen) return el.requestFullscreen();
   if (el.webkitRequestFullscreen) return el.webkitRequestFullscreen();
   if (el.mozRequestFullScreen) return el.mozRequestFullScreen();
@@ -29,6 +77,16 @@ function requestFullscreen() {
 
 function checkFullscreen() {
   setPopup(!isFullscreen());
+}
+
+function resolveArchiveAssetPath(path) {
+  if (!path || !path.startsWith('/assets/')) {
+    return path;
+  }
+
+  const fromHtmls = window.location.pathname.includes('/htmls/');
+  const relativePath = fromHtmls ? `..${path}` : `.${path}`;
+  return new URL(relativePath, window.location.href).href;
 }
 
 window.initRoomMenu = function initRoomMenu(options = {}) {
@@ -42,7 +100,7 @@ window.initRoomMenu = function initRoomMenu(options = {}) {
   const exitConfirmOverlay = document.getElementById('exit-confirm-overlay');
   const exitConfirmYes = document.getElementById('exit-confirm-yes');
   const exitConfirmNo = document.getElementById('exit-confirm-no');
-  const mapImageSrc = options.mapImageSrc || '/assets/map/frontyard-map.svg';
+  const mapImageSrc = resolveArchiveAssetPath(options.mapImageSrc || '/assets/map/frontyard-map.svg');
   const mapLabel = options.mapLabel || 'Front Yard';
   const mapTitle = options.mapTitle || 'Site Map';
   const exitHref = options.exitHref
@@ -73,9 +131,9 @@ window.initRoomMenu = function initRoomMenu(options = {}) {
 
   const updateMapTriggerIcon = () => {
     if (mapWindowOpen) {
-      mapTrigger.src = mapTriggerHovered ? '/assets/map active hover.svg' : '/assets/map active.svg';
+      mapTrigger.src = resolveArchiveAssetPath(mapTriggerHovered ? '/assets/map active hover.svg' : '/assets/map active.svg');
     } else {
-      mapTrigger.src = mapTriggerHovered ? '/assets/map hover.svg' : '/assets/map.svg';
+      mapTrigger.src = resolveArchiveAssetPath(mapTriggerHovered ? '/assets/map hover.svg' : '/assets/map.svg');
     }
 
     mapTrigger.setAttribute('aria-expanded', String(mapWindowOpen));
@@ -164,6 +222,7 @@ window.initRoomMenu = function initRoomMenu(options = {}) {
 };
 
 window.addEventListener('load', () => {
+  ensureFullscreenPopup();
   const enterBtn = document.getElementById('enter-fullscreen-btn');
   const popupEnter = document.getElementById('popup-enter-btn');
   const popupDismiss = document.getElementById('popup-dismiss-btn');
@@ -177,6 +236,13 @@ window.addEventListener('load', () => {
 
 ['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(evt => {
   document.addEventListener(evt, checkFullscreen);
+  try {
+    if (window.top && window.top !== window && window.top.document) {
+      window.top.document.addEventListener(evt, checkFullscreen);
+    }
+  } catch (error) {
+    // Ignore inaccessible parent documents.
+  }
 });
 
 window.addEventListener('resize', checkFullscreen);

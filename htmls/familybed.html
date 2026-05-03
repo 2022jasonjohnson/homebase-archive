@@ -97,33 +97,33 @@
 
     <body>
     <div id="background">
-      <img src="/assets/location/family bedroom.png" alt="Background">
+      <img src="../assets/location/family bedroom.png" alt="Background">
     </div>
 
-    <img src="/assets/items/shirt.png" class="shirt" onclick="openWindow('shirt')" onmouseover="this.src='/assets/items/shirt hover.png'" onmouseout="this.src='/assets/items/shirt.png'">
+    <img src="../assets/items/shirt.png" class="shirt" onclick="openWindow('shirt')" onmouseover="this.src='../assets/items/shirt hover.png'" onmouseout="this.src='../assets/items/shirt.png'">
 
-    <img src="/assets/items/bank-statement.png" class="bank-statement" onclick="openErrorOverlay('bank-statement')" onmouseover="this.src='/assets/items/bank-statement hover.png'" onmouseout="this.src='/assets/items/bank-statement.png'">
+    <img src="../assets/items/bank-statement.png" class="bank-statement" onclick="openErrorOverlay('bank-statement')" onmouseover="this.src='../assets/items/bank-statement hover.png'" onmouseout="this.src='../assets/items/bank-statement.png'">
 
 
     <div id="overlay"></div>
 
     <div class="menu">
-      <img src="/assets/ui square 2.svg" style ="width:100%; height:100%; display:block; margin:0; rotate:calc(180deg)" alt="Menu Background">
+      <img src="../assets/ui square 2.svg" style ="width:100%; height:100%; display:block; margin:0; rotate:calc(180deg)" alt="Menu Background">
 
       <div class="menu-bottom"></div>
       <div class="profile">
-        <img src="/assets/ui square.svg" style="width:100%; height:100%; display:block;" alt="Profile Background">
+        <img src="../assets/ui square.svg" style="width:100%; height:100%; display:block;" alt="Profile Background">
 
         <div class="profile-icon">
-          <img src="/assets/profile icon.svg" alt="Profile Icon">
+          <img src="../assets/profile icon.svg" alt="Profile Icon">
         </div>
       </div>
       <div class="map">
-        <img id="map-trigger" src="/assets/map.svg" style="width:100%; height:100%; display:block;" alt="Map" role="button" tabindex="0" aria-controls="map-window" aria-expanded="false">
+        <img id="map-trigger" src="../assets/map.svg" style="width:100%; height:100%; display:block;" alt="Map" role="button" tabindex="0" aria-controls="map-window" aria-expanded="false">
       </div>
 
       <div class="exit">
-        <img id="exit-trigger" src="/assets/exit.svg" style="width:100%; height:100%; display:block;" alt="Exit archive" role="button" tabindex="0" onmouseover="this.src='/assets/exit hover.svg'" onmouseout="this.src='/assets/exit.svg'">
+        <img id="exit-trigger" src="../assets/exit.svg" style="width:100%; height:100%; display:block;" alt="Exit archive" role="button" tabindex="0" onmouseover="this.src='../assets/exit hover.svg'" onmouseout="this.src='../assets/exit.svg'">
       </div>
     </div>
 
@@ -140,11 +140,11 @@
     <div id="error-overlay"></div>
 
     <a href="hallway.html" class="arrow-link" style="position:absolute; right:200px; bottom:250px; display:inline-block; width:100px; height:100px;">
-      <img src="/assets/arrows/up left arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Backyard">
+      <img src="../assets/arrows/up left arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Backyard">
     </a>
 
     <a href="closet.html" class="arrow-link" style="position:absolute; right:600px; bottom:180px; display:inline-block; width:100px; height:100px;">
-      <img src="/assets/arrows/up arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Backyard">
+      <img src="../assets/arrows/up arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Backyard">
     </a>
 
               <div class="window hidden" id="entries-window" style="width:400px; height:220px; top:120px; left:320px;">
@@ -171,7 +171,7 @@
         </button>
       </div>
       <div class="content">
-        <img src="/assets/map/familybedroom-map.svg" alt="" aria-hidden="true">
+        <img src="../assets/map/familybedroom-map.svg" alt="" aria-hidden="true">
         <p>Family Bedroom</p>
       </div>
     </div>
@@ -278,7 +278,7 @@
     title.addEventListener('mousedown', onDown);
   });
 });
-          window.initRoomMenu({ mapImageSrc: '/assets/map/familybedroom-map.svg', mapLabel: 'Family Bedroom' });
+          window.initRoomMenu({ mapImageSrc: '../assets/map/familybedroom-map.svg', mapLabel: 'Family Bedroom' });
 </script>
 
 

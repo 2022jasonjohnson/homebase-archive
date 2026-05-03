@@ -81,28 +81,28 @@
 
     <body>
     <div id="background">
-      <img src="/assets/location/living room.png" alt="Background">
+      <img src="../assets/location/living room.png" alt="Background">
     </div>
 
     <div id="overlay"></div>
 
     <div class="menu">
-      <img src="/assets/ui square 2.svg" style ="width:100%; height:100%; display:block; margin:0; rotate:calc(180deg)" alt="Menu Background">
+      <img src="../assets/ui square 2.svg" style ="width:100%; height:100%; display:block; margin:0; rotate:calc(180deg)" alt="Menu Background">
 
       <div class="menu-bottom"></div>
       <div class="profile">
-        <img src="/assets/ui square.svg" style="width:100%; height:100%; display:block;" alt="Profile Background">
+        <img src="../assets/ui square.svg" style="width:100%; height:100%; display:block;" alt="Profile Background">
 
         <div class="profile-icon">
-          <img src="/assets/profile icon.svg" alt="Profile Icon">
+          <img src="../assets/profile icon.svg" alt="Profile Icon">
         </div>
       </div>
       <div class="map">
-        <img id="map-trigger" src="/assets/map.svg" style="width:100%; height:100%; display:block;" alt="Map" role="button" tabindex="0" aria-controls="map-window" aria-expanded="false">
+        <img id="map-trigger" src="../assets/map.svg" style="width:100%; height:100%; display:block;" alt="Map" role="button" tabindex="0" aria-controls="map-window" aria-expanded="false">
       </div>
 
       <div class="exit">
-        <img id="exit-trigger" src="/assets/exit.svg" style="width:100%; height:100%; display:block;" alt="Exit archive" role="button" tabindex="0" onmouseover="this.src='/assets/exit hover.svg'" onmouseout="this.src='/assets/exit.svg'">
+        <img id="exit-trigger" src="../assets/exit.svg" style="width:100%; height:100%; display:block;" alt="Exit archive" role="button" tabindex="0" onmouseover="this.src='../assets/exit hover.svg'" onmouseout="this.src='../assets/exit.svg'">
       </div>
     </div>
 
@@ -117,17 +117,17 @@
       </div>
     </div>
 
-        <img src="/assets/items/living room table photo.png" class="living-room-table" onclick="openWindow('living-room-table')" onmouseover="this.src='/assets/items/living room table photo hover.png'" onmouseout="this.src='/assets/items/living room table photo.png'">
+        <img src="../assets/items/living room table photo.png" class="living-room-table" onclick="openWindow('living-room-table')" onmouseover="this.src='../assets/items/living room table photo hover.png'" onmouseout="this.src='../assets/items/living room table photo.png'">
 
-                <img src="/assets/items/wall photo.png" class="wall-photo" onclick="openWindow('wall-photo')" onmouseover="this.src='/assets/items/wall photo hover.png'" onmouseout="this.src='/assets/items/wall photo.png'">
+                <img src="../assets/items/wall photo.png" class="wall-photo" onclick="openWindow('wall-photo')" onmouseover="this.src='../assets/items/wall photo hover.png'" onmouseout="this.src='../assets/items/wall photo.png'">
 
 
          <a href="kitchen.html" class="arrow-link" style="position:absolute; right:1000px; bottom:250px; display:inline-block; width:100px; height:100px;">
-      <img src="/assets/arrows/left arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Backyard">
+      <img src="../assets/arrows/left arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Backyard">
     </a>
 
              <a href="entrance.html" class="arrow-link" style="position:absolute; right:45%; bottom:100px; display:inline-block; width:100px; height:100px;">
-      <img src="/assets/arrows/down arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Backyard">
+      <img src="../assets/arrows/down arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Backyard">
     </a>
 
           <div class="window hidden" id="entries-window" style="width:400px; height:300px; top:180px; left:80px;">
@@ -154,7 +154,7 @@
         </button>
       </div>
       <div class="content">
-        <img src="/assets/map/livingroom-map.svg" alt="" aria-hidden="true">
+        <img src="../assets/map/livingroom-map.svg" alt="" aria-hidden="true">
         <p>Living Room</p>
       </div>
     </div>
@@ -244,7 +244,7 @@
     title.addEventListener('mousedown', onDown);
   });
 });
-          window.initRoomMenu({ mapImageSrc: '/assets/map/livingroom-map.svg', mapLabel: 'Living Room' });
+          window.initRoomMenu({ mapImageSrc: '../assets/map/livingroom-map.svg', mapLabel: 'Living Room' });
 </script>
 
     </body>
