@@ -69,28 +69,28 @@
 
    <body>
     <div id="background">
-      <img src="../assets/location/side yard.png" alt="Background">
+      <img src="/assets/location/side yard.png" alt="Background">
     </div>
 
     <div id="overlay"></div>
 
     <div class="menu">
-      <img src="../assets/ui square 2.svg" style ="width:100%; height:100%; display:block; margin:0; rotate:calc(180deg)" alt="Menu Background">
+      <img src="/assets/ui square 2.svg" style ="width:100%; height:100%; display:block; margin:0; rotate:calc(180deg)" alt="Menu Background">
 
       <div class="menu-bottom"></div>
       <div class="profile">
-        <img src="../assets/ui square.svg" style="width:100%; height:100%; display:block;" alt="Profile Background">
+        <img src="/assets/ui square.svg" style="width:100%; height:100%; display:block;" alt="Profile Background">
 
         <div class="profile-icon">
-          <img src="../assets/profile icon.svg" alt="Profile Icon">
+          <img src="/assets/profile icon.svg" alt="Profile Icon">
         </div>
       </div>
       <div class="map">
-        <img id="map-trigger" src="../assets/map.svg" style="width:100%; height:100%; display:block;" alt="Map" role="button" tabindex="0" aria-controls="map-window" aria-expanded="false">
+        <img id="map-trigger" src="/assets/map.svg" style="width:100%; height:100%; display:block;" alt="Map" role="button" tabindex="0" aria-controls="map-window" aria-expanded="false">
       </div>
 
       <div class="exit">
-        <img id="exit-trigger" src="../assets/exit.svg" style="width:100%; height:100%; display:block;" alt="Exit archive" role="button" tabindex="0" onmouseover="this.src='../assets/exit hover.svg'" onmouseout="this.src='../assets/exit.svg'">
+        <img id="exit-trigger" src="/assets/exit.svg" style="width:100%; height:100%; display:block;" alt="Exit archive" role="button" tabindex="0" onmouseover="this.src='/assets/exit hover.svg'" onmouseout="this.src='/assets/exit.svg'">
       </div>
     </div>
 
@@ -105,14 +105,14 @@
       </div>
     </div>
 
-    <img src="../assets/items/bin.png" class="bin" onclick="openWindow('bin')" onmouseover="this.src='../assets/items/bin hover.png'" onmouseout="this.src='../assets/items/bin.png'">
+    <img src="/assets/items/bin.png" class="bin" onclick="openWindow('bin')" onmouseover="this.src='/assets/items/bin hover.png'" onmouseout="this.src='/assets/items/bin.png'">
 
     <a href="backyard.html" class="arrow-link" style="position:absolute; right:900px; bottom:400px; display:inline-block; width:70px; height:70px;">
-      <img src="../assets/arrows/left arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Backyard">
+      <img src="/assets/arrows/left arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Backyard">
     </a>
 
     <a href="login-success.html" class="arrow-link" style="position:absolute; right:1200px; bottom:90px; display:inline-block; width:100px; height:100px;">
-      <img src="../assets/arrows/down left arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Backyard">
+      <img src="/assets/arrows/down left arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Backyard">
     </a>    
 
     <div class="window hidden" id="entries-window" style="width:400px; height:300px; top:160px; left:480px;">
@@ -139,7 +139,7 @@
         </button>
       </div>
       <div class="content">
-        <img src="../assets/map/sideyard-map.svg" alt="" aria-hidden="true">
+        <img src="/assets/map/sideyard-map.svg" alt="" aria-hidden="true">
         <p>Side Yard</p>
       </div>
     </div>
@@ -229,7 +229,8 @@
     title.addEventListener('mousedown', onDown);
   });
 });
-          window.initRoomMenu({ mapImageSrc: '../assets/map/sideyard-map.svg', mapLabel: 'Side Yard' });
+          window.initRoomMenu({ mapImageSrc: '/assets/map/sideyard-map.svg', mapLabel: 'Side Yard' });
+</script>
 
     </body>
 </html>

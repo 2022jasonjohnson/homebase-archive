@@ -42,8 +42,7 @@ window.initRoomMenu = function initRoomMenu(options = {}) {
   const exitConfirmOverlay = document.getElementById('exit-confirm-overlay');
   const exitConfirmYes = document.getElementById('exit-confirm-yes');
   const exitConfirmNo = document.getElementById('exit-confirm-no');
-  const assetRoot = window.location.pathname.includes('/htmls/') ? '../assets/' : 'assets/';
-  const mapImageSrc = options.mapImageSrc || `${assetRoot}map/frontyard-map.svg`;
+  const mapImageSrc = options.mapImageSrc || '/assets/map/frontyard-map.svg';
   const mapLabel = options.mapLabel || 'Front Yard';
   const mapTitle = options.mapTitle || 'Site Map';
   const exitHref = options.exitHref
@@ -74,9 +73,9 @@ window.initRoomMenu = function initRoomMenu(options = {}) {
 
   const updateMapTriggerIcon = () => {
     if (mapWindowOpen) {
-      mapTrigger.src = mapTriggerHovered ? `${assetRoot}map active hover.svg` : `${assetRoot}map active.svg`;
+      mapTrigger.src = mapTriggerHovered ? '/assets/map active hover.svg' : '/assets/map active.svg';
     } else {
-      mapTrigger.src = mapTriggerHovered ? `${assetRoot}map hover.svg` : `${assetRoot}map.svg`;
+      mapTrigger.src = mapTriggerHovered ? '/assets/map hover.svg' : '/assets/map.svg';
     }
 
     mapTrigger.setAttribute('aria-expanded', String(mapWindowOpen));

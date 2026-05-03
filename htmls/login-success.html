@@ -132,7 +132,7 @@
         top: 35px;
         height: 150px;
         overflow: hidden;
-      /* background: url('../assets/map.svg') no-repeat center center; */
+      /* background: url('/assets/map.svg') no-repeat center center; */
       background-size: contain;
       z-index: 5;
       padding: 12px 0 12px 12px;
@@ -237,7 +237,7 @@
   
   <body>
     <div id="background">
-      <img src="../assets/location/front yard.png" alt="Background" usemap="#image-map">
+      <img src="/assets/location/front yard.png" alt="Background" usemap="#image-map">
 
 
     </div>
@@ -245,38 +245,38 @@
     <div id="overlay"></div>
 
     <div class="menu">
-      <img src="../assets/ui square 2.svg" style ="width:100%; height:100%; display:block; margin:0; rotate:calc(180deg)" alt="Menu Background">
+      <img src="/assets/ui square 2.svg" style ="width:100%; height:100%; display:block; margin:0; rotate:calc(180deg)" alt="Menu Background">
 
       <div class="menu-bottom"></div>
       <div class="profile">
-      <img src="../assets/ui square.svg" style="width:100%; height:100%; display:block;" alt="Profile Background">
+      <img src="/assets/ui square.svg" style="width:100%; height:100%; display:block;" alt="Profile Background">
 
         <div class="profile-icon">
-        <img src="../assets/profile icon.svg">
+        <img src="/assets/profile icon.svg">
 
         </div>
         </div>
       <div class="map">
-        <img id="map-trigger" src="../assets/map.svg" style="width:100%; height:100%; display:block;" alt="Map" role="button" tabindex="0" aria-controls="map-window" aria-expanded="false">
+        <img id="map-trigger" src="/assets/map.svg" style="width:100%; height:100%; display:block;" alt="Map" role="button" tabindex="0" aria-controls="map-window" aria-expanded="false">
       </div>
 
       <div class="exit">
-        <img id="exit-trigger" src="../assets/exit.svg" style="width:100%; height:100%; display:block;" alt="Exit archive" role="button" tabindex="0" onmouseover="this.src='../assets/exit hover.svg'" onmouseout="this.src='../assets/exit.svg'">
+        <img id="exit-trigger" src="/assets/exit.svg" style="width:100%; height:100%; display:block;" alt="Exit archive" role="button" tabindex="0" onmouseover="this.src='/assets/exit hover.svg'" onmouseout="this.src='/assets/exit.svg'">
       </div>
 
       </div>
 
     </div>
     
-    <img src="../assets/items/early-porch.png" class="early-porch" onclick="openWindow('early-porch')" onmouseover="this.src='../assets/items/early-porch hover.png'" onmouseout="this.src='../assets/items/early-porch.png'">
+    <img src="/assets/items/early-porch.png" class="early-porch" onclick="openWindow('early-porch')" onmouseover="this.src='/assets/items/early-porch hover.png'" onmouseout="this.src='/assets/items/early-porch.png'">
 
 
     <a href="sideyard.html" class="arrow-link" style="position:absolute; right:520px; bottom:60px; display:inline-block; width:50px; height:60px;">
-      <img src="../assets/arrows/up right arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Sideyard">
+      <img src="/assets/arrows/up right arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Sideyard">
     </a>
 
     <a href="entrance.html" class="arrow-link" style="position:absolute; right:725px; bottom:70px; display:inline-block; width:50px; height:50px;">
-      <img src="../assets/arrows/up arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Entrance">
+      <img src="/assets/arrows/up arrow.png" style="width:100%; height:100%; display:block;" alt="Go to Entrance">
     </a>    
 
   
@@ -325,7 +325,7 @@
             </button>
         </div>
         <div class="content">
-            <img src="../assets/map/frontyard-map.svg" alt="" aria-hidden="true">
+            <img src="/assets/map/frontyard-map.svg" alt="" aria-hidden="true">
             <p>Front Yard</p>
             <!-- <p class="map-window-note">Toggle this pink window from the map button in the top bar.</p> -->
         </div>
@@ -350,9 +350,9 @@
         if (!mapTrigger) return;
 
         if (mapWindowOpen) {
-          mapTrigger.src = mapTriggerHovered ? '../assets/map active hover.svg' : '../assets/map active.svg';
+          mapTrigger.src = mapTriggerHovered ? '/assets/map active hover.svg' : '/assets/map active.svg';
         } else {
-          mapTrigger.src = mapTriggerHovered ? '../assets/map hover.svg' : '../assets/map.svg';
+          mapTrigger.src = mapTriggerHovered ? '/assets/map hover.svg' : '/assets/map.svg';
         }
 
         mapTrigger.setAttribute('aria-expanded', String(mapWindowOpen));
